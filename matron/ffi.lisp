@@ -1,34 +1,71 @@
 (in-package :matron)
 
-(define-foreign-library :cairo
+;;
+;; paths
+;;
+
+(setf (logical-pathname-translations "norns-src")
+	  `(("**;*.*.*" #p"/home/we/norns/**/*.*")))
+
+(setf (logical-pathname-translations "matron-build")
+	  `(("**;*.*.*" "norns-src:build;matron;**;*.*")))
+
+(setf (logical-pathname-translations "matron-src")
+	  `(("**;*.*.*" "norns-src:matron;src;**;*.*")))
+
+;;;
+;;; libraries
+;;;
+
+(cffi:define-foreign-library :cairo
   (t (:default "libcairo")))
 
-(define-foreign-library :freetype
+(cffi:define-foreign-library :freetype
   (t (:default "libfreetype")))
 
-(define-foreign-library :monome
+(cffi:define-foreign-library :monome
   (t (:default "libmonome")))
 
-(define-foreign-library :udev
+(cffi:define-foreign-library :udev
   (t (:default "libudev")))
 
-(define-foreign-library :evdev
+(cffi:define-foreign-library :evdev
   (t (:default "libevdev")))
 
-(define-foreign-library :pthread
+(cffi:define-foreign-library :pthread
   (t (:default "libpthread")))
 
-(define-foreign-library :matron
+(cffi:define-foreign-library :matron
   (t (:default "libmatron")))
 
-(pushnew #P"/home/we/norns/build/matron/" cffi:*foreign-library-directories*
-	 :test #'equal)
+(pushnew (translate-logical-pathname "matron-build:") cffi:*foreign-library-directories*
+		 :test #'equal)
 
 (defun load-libraries ()
   (progn
-	(use-foreign-library :udev)
-	(use-foreign-library :evdev)
-	(use-foreign-library :cairo)
-	(use-foreign-library :freetype)
-	(use-foreign-library :monome)
-	(use-foreign-library :matron)))
+	(cffi:use-foreign-library :udev)
+	(cffi:use-foreign-library :evdev)
+	(cffi:use-foreign-library :cairo)
+	(cffi:use-foreign-library :freetype)
+	(cffi:use-foreign-library :monome)
+	(cffi:use-foreign-library :matron)))
+
+;; (eval-when (:compile-toplevel :load-toplevel :execute)
+;;   (progn
+;; 	(cffi:use-foreign-library :udev)
+;; 	(cffi:use-foreign-library :evdev)
+;; 	(cffi:use-foreign-library :cairo)
+;; 	(cffi:use-foreign-library :freetype)
+;; 	(cffi:use-foreign-library :monome)
+;; 	(cffi:use-foreign-library :matron)))
+
+;;;
+;;; ffi generation
+;;;
+
+(defun header-path (name)
+  (merge-pathnames "matron-src:" name))
+
+;(c-include "gpio.c"
+		   
+		   

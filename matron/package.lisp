@@ -1,2 +1,2 @@
 (defpackage :matron
-  (:use :common-lisp :cffi))
+  (:use :common-lisp :autowrap))
