@@ -1,5 +1,8 @@
 ;;; -*- mode: lisp -*-
 
+(require 'cffi)
+(require 'cl-autowrap)
+
 (defpackage :matron.asdf
   (:use #:cl #:asdf))
 
