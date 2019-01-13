@@ -21,7 +21,7 @@
 (cffi:define-foreign-library :matron
   (t (:default "libmatron")))
 
-(pushnew #P"/home/greg/proj/norns/build/matron/" cffi:*foreign-library-directories*
+(pushnew #P"/home/we/norns/build/matron/" cffi:*foreign-library-directories*
 	 :test #'equal)
 
 (cffi:use-foreign-library :udev)
