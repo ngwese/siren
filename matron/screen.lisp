@@ -7,21 +7,29 @@
 (defcfun "screen_save" :void)
 (defcfun "screen_restore" :void)
 
-(defcfun "screen_font_face" :void (i :int))
-;; 1 04B_03 (norns default)
-;; 2 ALEPH
-;; 3 Roboto Thin
-;; 4 Roboto Light
-;; 5 Roboto Regular
-;; 6 Roboto Medium
-;; 7 Roboto Bold
-;; 8 Roboto Black
-;; 9 Roboto Thin Italic
-;; 10 Roboto Light Italic
-;; 11 Roboto Italic
-;; 12 Roboto Medium Italic
-;; 13 Roboto Bold Italic
-;; 14 Roboto Black Italic
+
+(defcenum screen-font
+  (:default-font 0)
+  (:04B_03 1)
+  (:aleph 2)
+  (:roboto-thin 3)
+  (:roboto-light 4)
+  (:roboto-regular 5)
+  (:roboto-medium 6)
+  (:roboto-bold 7)
+  (:roboto-black 8)
+  (:roboto-thin-italic 9)
+  (:roboto-light-italic 10)
+  (:roboto-italic 11)
+  (:roboto-medium-italic 12)
+  (:roboto-bold-italic 13)
+  (:roboto-black-italic 14))
+
+(defcfun ("screen_font_face" %screen-font-face) :void (i :int))
+
+(defun screen-font-face (enum)
+  "set current font by keyword"
+  (%screen-font-face (foreign-enum-value 'screen-font enum)))
 
 (defcfun "screen_font_size" :void (z :double))
 
@@ -31,8 +39,18 @@
 (defcfun "screen_line" :void (x :double) (y :double))
 (defcfun "screen_line_rel" :void (x :double) (y :double))
 (defcfun "screen_line_width" :void (w :double))
-(defcfun "screen_line_cap" :void (style :string)) ; "butt", "round", "square"
-(defcfun "screen_line_join" :void (style :string)) ; "miter", "round", "bevel"
+
+(defconstant +cap-butt+ "butt")
+(defconstant +cap-round+ "round")
+(defconstant +cap-square+ "square")
+
+(defcfun "screen_line_cap" :void (style :string))
+
+(defconstant +join-miter+ "miter")
+(defconstant +join-round+ "round")
+(defconstant +join-bevel+ "bevel")
+
+(defcfun "screen_line_join" :void (style :string))
 
 (defcfun "screen_miter_limit" :void (limit :double))
 

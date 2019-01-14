@@ -45,4 +45,12 @@
    "SCREEN-TEXT-RIGHT"
    "SCREEN-CIRCLE"
 
+   ;; cap/miter constants
+   "+CAP-BUTT+"
+   "+CAP-ROUND+"
+   "+CAP-SQUARE+"
+   "+JOIN-MITER+"
+   "+JOIN-ROUND+"
+   "+JOIN-BEVEL+"
+
    ))

@@ -35,14 +35,14 @@
   (screen-level 15)
   (screen-move 0d0 63d0)
   ;; set text face
-  (screen-font-face 9)
+  (screen-font-face :roboto-thin-italic)
   ;; set text size
   (screen-font-size 20d0)
   ;; draw text
   (screen-text "new!")
   ;; draw centered text
   (screen-move 63d0 50d0)
-  (screen-font-face 0)
+  (screen-font-face :default-font)
   (screen-font-size 8d0)
   (screen-text-center "center")
   ;; draw right aligned text
