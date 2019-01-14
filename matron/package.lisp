@@ -1,2 +1,48 @@
 (defpackage :matron
-  (:use :common-lisp :autowrap))
+  (:use :common-lisp :cffi)
+
+  (:export
+   "GPIO-INIT"
+   "GPIO-DEINIT"
+
+   "I2C-INIT"
+   "I2C-DEINIT"
+   "I2C-HP"
+
+   "BATTERY-INIT"
+   "BATTERY-DEINIT"
+   
+   "SCREEN-INIT"
+   "SCREEN-DEINIT"
+   "SCREEN-UPDATE"
+   "SCREEN-SAVE"
+   "SCREEN-RESTORE"
+   "SCREEN-FONT-FACE"
+   "SCREEN-FONT-SIZE"
+   "SCREEN-AA"
+   "SCREEN-LEVEL"
+   "SCREEN-LINE"
+   "SCREEN-LINE-REL"
+   "SCREEN-LINE-WIDTH"
+   "SCREEN-LINE-CAP"
+   "SCREEN-LINE-JOIN"
+   "SCREEN-MITER-LIMIT"
+   "SCREEN-MOVE"
+   "SCREEN-MOVE-REL"
+   "SCREEN-CURVE"
+   "SCREEN-CURVE-REL"
+   "SCREEN-CURVE"
+   "SCREEN-ARC"
+   "SCREEN-RECT"
+   "SCREEN-STROKE"
+   "SCREEN-FILL"
+   "SCREEN-TEXT"
+   "SCREEN-CLEAR"
+   "SCREEN-CLOSE-PATH"
+   "SCREEN-EXTENTS"
+
+   "SCREEN-TEXT-CENTER"
+   "SCREEN-TEXT-RIGHT"
+   "SCREEN-CIRCLE"
+
+   ))

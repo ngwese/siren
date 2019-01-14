@@ -2,4 +2,4 @@
   (:use :common-lisp :matron))
 
 (defpackage :siren-user
-  (:use :common-lisp :siren))
+  (:use :common-lisp :siren :matron))
