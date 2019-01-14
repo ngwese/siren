@@ -7,7 +7,6 @@
 (defcfun "screen_save" :void)
 (defcfun "screen_restore" :void)
 
-
 (defcenum screen-font
   (:default-font 0)
   (:04B_03 1)
