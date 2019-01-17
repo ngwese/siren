@@ -74,7 +74,7 @@
 
 (defmacro %defevent (name &rest body)
   `(defcstruct ,name
-	 (common (:pointer (:struct event-common)))
+	 (common (:struct event-common-t))
 	 ,@body))
 
 (defcstruct event-common-t
@@ -133,7 +133,7 @@
   (path :string)
   (from-host :string)
   (from-port :string)
-  (msg osc-message))
+  (msg osc-message-t))
 
 (%defevent event-metro-t
   (id :uint32)

@@ -131,7 +131,7 @@
 (defcfun "dev_midi_send" ssize-t
   (self %midi-self-ptr-t)
   (data (:pointer :uint8))
-  (n size))
+  (n size-t))
 
 ;;;
 ;;; device
