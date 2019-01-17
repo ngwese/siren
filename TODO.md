@@ -8,3 +8,4 @@ TODO
 - [ ] rename ffi.lisp to lib.lisp???
 - [ ] figure out why asdf:compile-system doesn't compile anything
 - [ ] high level interfaces
+- [ ] consider reimplementing (event-loop) in lisp to avoid the need for a callback
