@@ -6,7 +6,8 @@
 
 (cffi:defcallback demo-handler :void ((ev event-data-ptr-t))
   (let ((type (cffi:foreign-slot-value ev '(:union event-data-t) 'type)))
-	(format t "ev type: ~D~%" type)))
+	(format t "ev type: ~D~%" type)
+	(event-data-free ev)))
 
 (defun test-screen ()
   (events-init)  ;; must come first
