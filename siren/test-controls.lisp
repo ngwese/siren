@@ -3,8 +3,6 @@
 (cffi:defcallback demo-handler :void ((ev event-data-ptr-t))
   (let* ((type-num (cffi:foreign-slot-value ev '(:union event-data-t) 'type))
 		 (type (cffi:foreign-enum-keyword 'event-t type-num)))
-;	(format t "ev type: ~A (~D) // " type type-num) 
-	
 	(case type
 	  (:event-key
 	   (cffi:with-foreign-slots ((matron::id matron::val) ev (:struct event-key-t))
@@ -23,20 +21,19 @@
 		 (screen-update)))
 	  (otherwise
 	   (format t "=> no match? ~A ~A~%" (type-of type) (type-of :event-type-key))
-										;(setq *event-loop-quit* t)
 	   ))
 	(event-data-free ev)))
 
-(defun test-screen ()
+(defun test-controls-init ()
   (events-init)  ;; must come first
   (event-set-handler (cffi:callback demo-handler))
-  
+  (screen-init)
   (gpio-init)    ; for keys
-  (i2c-init)     ; for enc
+  (i2c-init))    ; for enc
 
-  (event-loop)
-
+(defun test-controls-deinit ()
   (i2c-deinit)
-  (gpio-deinit))
+  (gpio-deinit)
+  (screen-deinit))
   
   
