@@ -11,7 +11,7 @@
   :description "ffi for mid level matron api"
   :version "0.1"
   
-  :depends-on (:cffi)
+  :depends-on (:cffi :monome)
 
   :pathname "matron"
   :serial t

@@ -1,6 +1,6 @@
 (in-package :matron)
 
-(defctype ssize-t :int) ; MAINT: confirm against ssize_t
+(defctype ssize-t :int)				  ; MAINT: confirm against ssize_t
 
 ;;;
 ;;; device common
@@ -36,17 +36,14 @@
   :device-monome-type-grid
   :device-monome-type-arc)
 
-; TODO: monome-t
-(defctype monome-t :void)
-
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +monome-buffer-size+ 256))
 
 (defcstruct dev-monome-t
   (dev (:struct dev-common-t))
   (type device-monome-type-t)
-  (m (:pointer monome-t))
-  (data :uint8 :count 256) ; led data by quad
+  (m monome:monome-ptr-t)				; libmonome device pointer
+  (data :uint8 :count 256)				; led data by quad
   (dirty :bool :count 4))
 
 (defctype dev-monome-ptr-t (:pointer (:struct dev-monome-t)))
