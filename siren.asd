@@ -12,4 +12,10 @@
   :serial t
 
   :components
-  ((:file "package")))
+  ((:file "package")
+   (:file "matron-device")
+   (:file "monome-device")
+   (:file "midi-device")
+   (:file "hid-device")))
+
+

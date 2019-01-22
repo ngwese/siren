@@ -6,7 +6,7 @@
 ;;; device common
 ;;;
 
-(defcenum device-t
+(defcenum dev-type-t
   :dev-type-monome
   :dev-type-hid
   :dev-type-midi
@@ -19,7 +19,7 @@
 (defctype pthread-t :uint32) ; FIXME: this needs to be confirmed or dev-common-t is possibly wrong
 
 (defcstruct dev-common-t
-  (type device-t)
+  (type dev-type-t)
   (id :uint32)
   (tid pthread-t)
   (path :string)
@@ -144,7 +144,7 @@
 
 (defcfun "devices_init" :void)
 (defcfun "dev_new" dev-ptr-t
-  (type device-t)
+  (type dev-type-t)
   (path :string)
   (name :string))
 (defcfun "dev_delete" :void (d dev-ptr-t))
@@ -158,11 +158,11 @@
 
 (defcfun "dev_list_init" :void)
 (defcfun "dev_list_add" :void
-  (type device-t)
+  (type dev-type-t)
   (node :string)
   (name :string))
 (defcfun "dev_list_remove" :void
-  (type device-t)
+  (type dev-type-t)
   (name :string))
 
 ;;;
