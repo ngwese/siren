@@ -6,7 +6,7 @@
 (in-package :siren.asdf)
 
 (defsystem :siren
-  :depends-on (:matron)
+  :depends-on (:matron :bordeaux-threads)
 
   :pathname "siren"
   :serial t
@@ -17,5 +17,3 @@
    (:file "monome-device")
    (:file "midi-device")
    (:file "hid-device")))
-
-
