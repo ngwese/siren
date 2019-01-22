@@ -58,11 +58,22 @@
 	  (:event-monome-remove
 	   (handle-event-monome-remove (cffi:foreign-slot-value ev '(:struct event-monome-remove-t)
 															'matron::id)))
+	  (:event-metro
+	   (cffi:with-foreign-slots ((matron::id matron::stage) ev
+								 (:struct event-metro-t))
+		 (handle-event-metro matron::id matron::stage)))
 	  
 	  (otherwise
 	   (format t "=> no match? ~A ~A~%" (type-of type) (type-of :event-type-key))
 	   ))
 	(event-data-free ev)))
+
+;;;
+;;; metro
+;;;
+
+(defun handle-event-metro (id stage)
+  (format t "metro: id=~D stage=~D~%" id stage))
 
 ;;;
 ;;; hid
