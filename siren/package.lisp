@@ -1,5 +1,5 @@
 (defpackage :siren
-  (:use :common-lisp :matron))
+  (:use :common-lisp :matron :bordeaux-threads))
 
 (defpackage :siren-user
-  (:use :common-lisp :siren :matron))
+  (:use :common-lisp :siren :matron :bordeaux-threads))

@@ -36,10 +36,10 @@
 		 (handle-event-hid-event matron::id matron::type matron::code matron::value)))
 	  (:event-hid-add
 	   (handle-event-hid-add (cffi:foreign-slot-value ev '(:struct event-hid-add-t)
-													  'matron::dev)))
+							  'matron::dev)))
 	  (:event-hid-remove
 	   (handle-event-hid-remove (cffi:foreign-slot-value ev '(:struct event-hid-remove-t)
-														 'matron::id)))
+							     'matron::id)))
 	  (:event-grid-key
 	   (cffi::with-foreign-slots ((matron::id matron::x matron::y matron::state) ev
 								  (:struct event-grid-key-t))
@@ -151,3 +151,30 @@
   (i2c-deinit)
   (gpio-deinit)
   (screen-deinit))
+
+
+(defvar *event-loop-mutex* (make-lock "event-loop-mutex"))
+(defvar *event-loop-thread* nil)
+
+(defun event-loop-start ()
+  (flet ((event-loop-body ()
+		   ;; insert logging?
+		   (matron:event-loop)
+		   (with-lock-held (*event-loop-mutex*)
+			 (if (eq *event-loop-thread* (current-thread))
+				 (setf *event-loop-thread* nil)))))
+	(with-lock-held (*event-loop-mutex*)
+	  (if (not *event-loop-thread*)
+		  (progn
+			(setf matron:*event-loop-quit* nil)
+			(let ((thread (make-thread #'event-loop-body :name "matron-event-loop")))
+			  (setf *event-loop-thread* thread)))))))
+
+;; NOTE: the matron event loop is fully blocking so the join here
+;; won't happen until some event (like a key press happens)
+(defun event-loop-stop ()
+  (let ((thread *event-loop-thread*))
+	(if thread
+		(progn
+		  (setf matron:*event-loop-quit* t)
+		  (join-thread thread)))))
